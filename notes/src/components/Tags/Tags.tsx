@@ -9,16 +9,18 @@ interface ITags {
   tags: ITag[];
   newTag: string;
   enterTag: (value: string) => void;
+  saveNewTag: () => void;
+  deleteTag: (tagId: number) => void;
 }
 
-const Tags: FC<ITags> = ({ tags, newTag, enterTag }) => (
+const Tags: FC<ITags> = ({ tags, newTag, enterTag, saveNewTag, deleteTag }) => (
   <div className="Tags">
     <div>
       <h4>Tags</h4>
       <div className="TagsWrapper">
         {tags.map((tag: ITag) => (
           <div className="Tag" key={tag.id}>
-            {tag.name} <div className="Delete"></div>
+            {tag.name} <div className="Delete" onClick={() => deleteTag(tag.id)}></div>
           </div>
         ))}
       </div>
@@ -30,7 +32,7 @@ const Tags: FC<ITags> = ({ tags, newTag, enterTag }) => (
         value={newTag}
         onChange={(e) => enterTag(e.target.value)}
       ></input>
-      <button>+ Add tag</button>
+      <button onClick={() => saveNewTag()}>+ Add tag</button>
     </div>
   </div>
 );

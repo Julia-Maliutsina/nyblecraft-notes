@@ -1,9 +1,11 @@
 import React from 'react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import NotesPage from './NotesPage';
 
-const NotesPageContainer: FC = ({}) => {
+const NotesPageContainer: FC = () => {
+  let [activeTag, setActiveTag] = useState('');
+  const chooseTag = (tag: string) => {};
   return <NotesPage />;
 };
 

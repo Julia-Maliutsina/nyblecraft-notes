@@ -1,6 +1,7 @@
 export interface INote {
-  id: number;
+  id: number | null;
   title: string;
   text: string;
-  date: Date;
+  date: string;
+  tags: Array<string>;
 }

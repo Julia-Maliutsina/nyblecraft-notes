@@ -1,0 +1,50 @@
+@import '../../style/colors.scss';
+@import '../../style/buttons.scss';
+
+.Notes {
+  width: 65%;
+  height: 100%;
+  padding-left: 2.5%;
+  border-left: $border;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .NotesWrapper {
+    height: calc(100% - 35px);
+    overflow-y: auto;
+    .Note {
+      height: 90px;
+      background: $light-color;
+      margin: 10px 0;
+      padding: 5px;
+      font-family: 'Lucida Sans', sans-serif;
+      border: 1px solid $light-color;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:hover {
+        border: 1px solid $button-secondary-color;
+        cursor: pointer;
+      }
+      p {
+        margin: 3px 0;
+        font-size: 14px;
+        &:first-child {
+          font-family: 'Lucida Grande', sans-serif;
+          font-size: 16px;
+        }
+        &:last-child {
+          color: $secondary-text-color;
+        }
+      }
+    }
+  }
+  button {
+    @include button;
+    padding: 0 3px;
+    margin-top: 5px;
+    &:hover {
+      @include hovered-button;
+    }
+  }
+}

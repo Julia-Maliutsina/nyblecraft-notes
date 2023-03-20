@@ -1,0 +1,54 @@
+@import '../../style/colors.scss';
+@import '../../style/buttons.scss';
+
+.DialogBackground {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .NoteDialog {
+    width: 40%;
+    height: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: $light-color;
+    font-family: 'Lucida Sans', sans-serif;
+    .Title {
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+    .Text {
+      textarea {
+        display: block;
+        width: 100% !important;
+        height: calc(100% - 150px);
+        resize: none;
+        margin-bottom: 15px;
+        overflow-y: auto;
+      }
+    }
+    .Date {
+      color: $secondary-text-color;
+      font-size: 14px;
+    }
+    .Buttons {
+      display: flex;
+      justify-content: space-between;
+      button {
+        @include button;
+        width: 70px;
+        &:hover {
+          @include hovered-button;
+        }
+      }
+    }
+  }
+}

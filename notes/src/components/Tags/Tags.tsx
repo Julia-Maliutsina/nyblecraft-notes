@@ -9,11 +9,11 @@ interface ITags {
   tags: ITag[];
   newTag: string;
   enterTag: (value: string) => void;
-  saveNewTag: () => void;
+  saveTag: () => void;
   deleteTag: (tagId: number) => void;
 }
 
-const Tags: FC<ITags> = ({ tags, newTag, enterTag, saveNewTag, deleteTag }) => (
+const Tags: FC<ITags> = ({ tags, newTag, enterTag, saveTag, deleteTag }) => (
   <div className="Tags">
     <div>
       <h4>Tags</h4>
@@ -32,7 +32,7 @@ const Tags: FC<ITags> = ({ tags, newTag, enterTag, saveNewTag, deleteTag }) => (
         value={newTag}
         onChange={(e) => enterTag(e.target.value)}
       ></input>
-      <button onClick={() => saveNewTag()}>+ Add tag</button>
+      <button onClick={() => saveTag()}>+ Add tag</button>
     </div>
   </div>
 );

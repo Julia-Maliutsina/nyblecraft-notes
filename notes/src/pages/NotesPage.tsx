@@ -5,13 +5,21 @@ import { Tags } from '../components/Tags';
 import { Notes } from '../components/Notes';
 
 import './style.scss';
+import { ITag } from '../interfaces/tags';
 
-const NotesPage: FC = () => (
+interface INotesProps {
+  activeTag: string;
+  selectTag: (tag: string) => void;
+  tags: ITag[];
+  saveNewTag: (newTag: string) => void;
+}
+
+const NotesPage: FC<INotesProps> = ({ tags, activeTag, selectTag, saveNewTag }) => (
   <div className="NotesPage">
     <h3>My Notes</h3>
     <div className="NotesContainer">
-      <Tags />
-      <Notes />
+      <Tags tags={tags} activeTag={activeTag} selectTag={selectTag} saveNewTag={saveNewTag} />
+      <Notes activeTag={activeTag} />
     </div>
   </div>
 );

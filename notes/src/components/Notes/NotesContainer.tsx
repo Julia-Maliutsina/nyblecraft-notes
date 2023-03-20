@@ -5,7 +5,11 @@ import { NOTES } from '../../constants/notes';
 
 import Notes from './Notes';
 
-const TagsContainer: FC = () => {
+interface INotesProps {
+  activeTag: string;
+}
+
+const NotesContainer: FC<INotesProps> = ({ activeTag }) => {
   let [dialogOpen, setDialogOpen] = useState(false);
   let [activeNote, setActiveNote] = useState<INote>({
     id: null,
@@ -26,6 +30,18 @@ const TagsContainer: FC = () => {
       tags: [],
     };
   };
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+    setActiveNote({
+      id: null,
+      title: '',
+      text: '',
+      tags: [],
+      date: '',
+    });
+  };
+
   return (
     <Notes
       notes={NOTES}
@@ -34,8 +50,9 @@ const TagsContainer: FC = () => {
       activeNote={activeNote}
       setActiveNote={setActiveNote}
       createNote={createNote}
+      closeDialog={closeDialog}
     />
   );
 };
 
-export default TagsContainer;
+export default NotesContainer;

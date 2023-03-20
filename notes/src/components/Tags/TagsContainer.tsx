@@ -1,27 +1,22 @@
 import { FC, useState } from 'react';
 
-import { TAGS } from '../../constants/tags';
 import { ITag } from '../../interfaces/tags';
 
 import Tags from './Tags';
 
-const TagsContainer: FC = () => {
-  let tags = TAGS;
+interface ITagsProps {
+  activeTag: string;
+  selectTag: (tag: string) => void;
+  tags: ITag[];
+  saveNewTag: (newTag: string) => void;
+}
+
+const TagsContainer: FC<ITagsProps> = ({ tags, activeTag, selectTag, saveNewTag }) => {
   let [newTag, setNewTag] = useState('');
 
   const enterTag = (value: string) => {
     let tag = value.split(' ').join('_').split('#').join('');
     setNewTag(tag);
-  };
-
-  const saveNewTag = () => {
-    const id = tags[tags.length - 1].id + 1;
-    let tag: ITag = {
-      id: id,
-      name: newTag,
-    };
-    tags.push(tag);
-    setNewTag('');
   };
 
   const deleteTag = (tagId: number) => {
@@ -34,14 +29,13 @@ const TagsContainer: FC = () => {
     }
   };
 
+  const saveTag = () => {
+    saveNewTag(newTag);
+    setNewTag('');
+  };
+
   return (
-    <Tags
-      tags={tags}
-      newTag={newTag}
-      enterTag={enterTag}
-      saveNewTag={saveNewTag}
-      deleteTag={deleteTag}
-    />
+    <Tags tags={tags} newTag={newTag} enterTag={enterTag} saveTag={saveTag} deleteTag={deleteTag} />
   );
 };
 

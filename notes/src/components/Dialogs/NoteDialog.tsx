@@ -10,7 +10,7 @@ interface INoteDialog {
   isNew: boolean;
   changeTitle: (value: string) => void;
   changeText: (value: string) => void;
-  setDialogOpen: any;
+  closeDialog: () => void;
 }
 
 const NoteDialog: FC<INoteDialog> = ({
@@ -18,7 +18,7 @@ const NoteDialog: FC<INoteDialog> = ({
   isNew,
   changeTitle,
   changeText,
-  setDialogOpen,
+  closeDialog,
 }) => (
   <div className="DialogBackground">
     <div className="NoteDialog">
@@ -40,7 +40,7 @@ const NoteDialog: FC<INoteDialog> = ({
       <p className="Date">{activeNote.date}</p>
       <div className="Buttons">
         {isNew ? <button>Save</button> : <button>Delete</button>}
-        <button onClick={() => setDialogOpen(false)}>Close</button>
+        <button onClick={() => closeDialog()}>Close</button>
       </div>
     </div>
   </div>

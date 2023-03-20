@@ -9,10 +9,10 @@ import './style.scss';
 interface INoteDialog {
   note: INote;
   isNew: boolean;
-  setDialogOpen: any;
+  closeDialog: () => void;
 }
 
-const NoteDialogContainer: FC<INoteDialog> = ({ note, isNew, setDialogOpen }) => {
+const NoteDialogContainer: FC<INoteDialog> = ({ note, isNew, closeDialog }) => {
   let [activeNote, setActiveNote] = useState(note);
 
   const changeTitle = (value: string) => {
@@ -32,7 +32,7 @@ const NoteDialogContainer: FC<INoteDialog> = ({ note, isNew, setDialogOpen }) =>
       isNew={isNew}
       changeTitle={changeTitle}
       changeText={changeText}
-      setDialogOpen={setDialogOpen}
+      closeDialog={closeDialog}
     />
   );
 };

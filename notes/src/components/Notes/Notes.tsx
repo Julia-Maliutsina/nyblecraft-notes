@@ -13,10 +13,11 @@ interface INotes {
   setDialogOpen: any;
   setActiveNote: any;
   createNote: () => INote;
-  closeDialog: () => void;
+  closeDialog: (isNew: boolean) => void;
   saveNewNote: (note: INote) => void;
   deleteNote: (id: number | null) => void;
   saveNewTag: (newTag: string) => void;
+  isNew: boolean;
 }
 
 const Notes: FC<INotes> = ({
@@ -30,6 +31,7 @@ const Notes: FC<INotes> = ({
   saveNewNote,
   deleteNote,
   saveNewTag,
+  isNew,
 }) => (
   <>
     <div className="Notes">
@@ -51,26 +53,17 @@ const Notes: FC<INotes> = ({
       </div>
       <button onClick={() => setDialogOpen(true)}>+ Add note</button>
     </div>
-    {dialogOpen &&
-      (activeNote?.id ? (
-        <NoteDialog
-          isNew={false}
-          note={activeNote}
-          closeDialog={closeDialog}
-          saveNewNote={saveNewNote}
-          deleteNote={deleteNote}
-          saveNewTag={saveNewTag}
-        />
-      ) : (
-        <NoteDialog
-          isNew={true}
-          note={createNote()}
-          closeDialog={closeDialog}
-          saveNewNote={saveNewNote}
-          deleteNote={deleteNote}
-          saveNewTag={saveNewTag}
-        />
-      ))}
+    {dialogOpen && (
+      <NoteDialog
+        isNew={isNew}
+        closeDialog={closeDialog}
+        saveNewNote={saveNewNote}
+        deleteNote={deleteNote}
+        saveNewTag={saveNewTag}
+        activeNote={activeNote?.id ? activeNote : createNote()}
+        setActiveNote={setActiveNote}
+      />
+    )}
   </>
 );
 

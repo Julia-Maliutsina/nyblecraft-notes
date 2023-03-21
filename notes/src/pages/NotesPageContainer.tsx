@@ -1,12 +1,13 @@
 import React from 'react';
 import { FC, useState } from 'react';
 
-import { TAGS } from '../constants/tags';
 import { ITag } from '../interfaces/tags';
 
 import NotesPage from './NotesPage';
 
 const NotesPageContainer: FC = () => {
+  let data = localStorage.getItem('tags') || '[]';
+  let TAGS = JSON.parse(data);
   let [activeTag, setActiveTag] = useState('');
   let [tags, setTags] = useState<ITag[]>(TAGS);
   const selectTag = (tag: string) => {
@@ -18,7 +19,12 @@ const NotesPageContainer: FC = () => {
   };
   const saveNewTag = (newTag: string) => {
     if (!tags.some((t) => t.name === newTag)) {
-      const id = tags[tags.length - 1].id + 1;
+      let id: number;
+      if (TAGS.length) {
+        id = tags[tags.length - 1].id + 1;
+      } else {
+        id = 1;
+      }
       let tag: ITag = {
         id: id,
         name: newTag,
@@ -26,6 +32,7 @@ const NotesPageContainer: FC = () => {
       setTags((prev: ITag[]) => {
         let newTags = [...prev];
         newTags.push(tag);
+        localStorage.setItem('tags', JSON.stringify(newTags));
         return newTags;
       });
     }
@@ -36,6 +43,7 @@ const NotesPageContainer: FC = () => {
         setTags((prev: ITag[]) => {
           let newTags = [...prev];
           newTags.splice(t, 1);
+          localStorage.setItem('tags', JSON.stringify(newTags));
           return newTags;
         });
         break;

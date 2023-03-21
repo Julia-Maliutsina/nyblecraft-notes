@@ -33,7 +33,14 @@ const Tags: FC<ITags> = ({ tags, newTag, enterTag, saveTag, deleteTag, activeTag
               selectTag(tag.name);
             }}
           >
-            {tag.name} <div className="Delete" onClick={() => deleteTag(tag.id)}></div>
+            {tag.name}{' '}
+            <div
+              className="Delete"
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteTag(tag.id);
+              }}
+            ></div>
           </div>
         ))}
       </div>

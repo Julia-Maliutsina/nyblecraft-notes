@@ -10,7 +10,7 @@ interface INoteDialog {
   isNew: boolean;
   changeTitle: (value: string) => void;
   changeText: (value: string) => void;
-  closeDialog: () => void;
+  closeDialog: (isNew: boolean) => void;
   saveNewNote: (note: INote) => void;
   deleteNote: (id: number | null) => void;
   saveNewTag?: (newTag: string) => void;
@@ -57,7 +57,7 @@ const NoteDialog: FC<INoteDialog> = ({
         ) : (
           <button onClick={() => deleteNote(activeNote.id)}>Delete</button>
         )}
-        <button onClick={() => closeDialog()}>Close</button>
+        <button onClick={() => closeDialog(!!isNew)}>Close</button>
       </div>
     </div>
   </div>

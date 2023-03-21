@@ -10,7 +10,11 @@ const NotesPageContainer: FC = () => {
   let [activeTag, setActiveTag] = useState('');
   let [tags, setTags] = useState<ITag[]>(TAGS);
   const selectTag = (tag: string) => {
-    setActiveTag(() => tag);
+    if (tag === activeTag) {
+      setActiveTag(() => '');
+    } else {
+      setActiveTag(() => tag);
+    }
   };
   const saveNewTag = (newTag: string) => {
     if (!tags.some((t) => t.name === newTag)) {

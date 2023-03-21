@@ -31,18 +31,26 @@ const NoteDialogContainer: FC<INoteDialogContainer> = ({
     setActiveNote(newNote);
   };
   const changeText = (value: string) => {
-    let newNote = activeNote;
-    newNote.text = value;
+    setActiveNote((note) => {
+      let newNote = { ...note };
+      newNote.text = value;
+      return newNote;
+    });
     let foundTags = value.match(/(?<=^#|\s#)([a-z\d]+)(?=\s|\W)/g);
     if (foundTags) {
       for (let t = 0; t < foundTags.length; t++) {
         if (!activeNote.tags.includes(foundTags[t])) {
-          newNote.tags.push(foundTags[t]);
+          setActiveNote((note) => {
+            let newNote = { ...note };
+            if (foundTags) {
+              newNote.tags.push(foundTags[t]);
+            }
+            return newNote;
+          });
           saveNewTag(foundTags[t]);
         }
       }
     }
-    setActiveNote(newNote);
   };
 
   return (

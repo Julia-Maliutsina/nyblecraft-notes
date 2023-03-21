@@ -22,13 +22,14 @@ const NotesContainer: FC<INotesContainer> = ({ activeTag, saveNewTag }) => {
   });
 
   useEffect(() => {
-    console.log(activeTag);
     if (activeTag) {
       setNotes((notes) => {
         let newNotes = [...NOTES];
         newNotes = newNotes.filter((n) => n.tags.includes(activeTag));
         return newNotes;
       });
+    } else {
+      setNotes(NOTES);
     }
   }, [activeTag]);
 

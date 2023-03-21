@@ -9,24 +9,15 @@ interface ITagsProps {
   selectTag: (tag: string) => void;
   tags: ITag[];
   saveNewTag: (newTag: string) => void;
+  deleteTag: (tagId: number) => void;
 }
 
-const TagsContainer: FC<ITagsProps> = ({ tags, activeTag, selectTag, saveNewTag }) => {
+const TagsContainer: FC<ITagsProps> = ({ tags, activeTag, selectTag, saveNewTag, deleteTag }) => {
   let [newTag, setNewTag] = useState('');
 
   const enterTag = (value: string) => {
-    let tag = value.split(' ').join('_').split('#').join('');
+    let tag = value.split(' ').join('_').split(/\W/).join('');
     setNewTag(tag);
-  };
-
-  const deleteTag = (tagId: number) => {
-    for (let t = 0; t < tags.length; t++) {
-      if (tags[t].id === tagId) {
-        tags.splice(t, 1);
-        console.log(tags);
-        return;
-      }
-    }
   };
 
   const saveTag = () => {
@@ -35,7 +26,15 @@ const TagsContainer: FC<ITagsProps> = ({ tags, activeTag, selectTag, saveNewTag 
   };
 
   return (
-    <Tags tags={tags} newTag={newTag} enterTag={enterTag} saveTag={saveTag} deleteTag={deleteTag} />
+    <Tags
+      tags={tags}
+      newTag={newTag}
+      enterTag={enterTag}
+      saveTag={saveTag}
+      deleteTag={deleteTag}
+      activeTag={activeTag}
+      selectTag={selectTag}
+    />
   );
 };
 

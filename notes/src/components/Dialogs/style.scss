@@ -18,6 +18,9 @@
     border-radius: 10px;
     background-color: $light-color;
     font-family: 'Lucida Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .Title {
       input {
         display: block;
@@ -26,13 +29,25 @@
       }
     }
     .Text {
+      flex-grow: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
       textarea {
+        flex-grow: 2;
         display: block;
         width: 100% !important;
-        height: calc(100% - 150px);
         resize: none;
         margin-bottom: 15px;
         overflow-y: auto;
+      }
+    }
+    .NoteDialog-Tags {
+      font-family: 'Lucida Sans Regular', sans-serif;
+      color: $button-secondary-color;
+      span {
+        margin: 0 3px;
+        color: $secondary-text-color;
       }
     }
     .Date {

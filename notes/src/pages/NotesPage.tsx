@@ -12,14 +12,21 @@ interface INotesProps {
   selectTag: (tag: string) => void;
   tags: ITag[];
   saveNewTag: (newTag: string) => void;
+  deleteTag: (tagId: number) => void;
 }
 
-const NotesPage: FC<INotesProps> = ({ tags, activeTag, selectTag, saveNewTag }) => (
+const NotesPage: FC<INotesProps> = ({ tags, activeTag, selectTag, saveNewTag, deleteTag }) => (
   <div className="NotesPage">
     <h3>My Notes</h3>
     <div className="NotesContainer">
-      <Tags tags={tags} activeTag={activeTag} selectTag={selectTag} saveNewTag={saveNewTag} />
-      <Notes activeTag={activeTag} />
+      <Tags
+        tags={tags}
+        activeTag={activeTag}
+        selectTag={selectTag}
+        saveNewTag={saveNewTag}
+        deleteTag={deleteTag}
+      />
+      <Notes activeTag={activeTag} saveNewTag={saveNewTag} />
     </div>
   </div>
 );

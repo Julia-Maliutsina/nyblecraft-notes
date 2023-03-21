@@ -6,13 +6,23 @@ import NoteDialog from './NoteDialog';
 
 import './style.scss';
 
-interface INoteDialog {
+interface INoteDialogContainer {
   note: INote;
   isNew: boolean;
   closeDialog: () => void;
+  saveNewNote: (note: INote) => void;
+  deleteNote: (id: number | null) => void;
+  saveNewTag: (newTag: string) => void;
 }
 
-const NoteDialogContainer: FC<INoteDialog> = ({ note, isNew, closeDialog }) => {
+const NoteDialogContainer: FC<INoteDialogContainer> = ({
+  note,
+  isNew,
+  closeDialog,
+  saveNewNote,
+  deleteNote,
+  saveNewTag,
+}) => {
   let [activeNote, setActiveNote] = useState(note);
 
   const changeTitle = (value: string) => {
@@ -23,6 +33,15 @@ const NoteDialogContainer: FC<INoteDialog> = ({ note, isNew, closeDialog }) => {
   const changeText = (value: string) => {
     let newNote = activeNote;
     newNote.text = value;
+    let foundTags = value.match(/(?<=^#|\s#)([a-z\d]+)(?=\s|\W)/g);
+    if (foundTags) {
+      for (let t = 0; t < foundTags.length; t++) {
+        if (!activeNote.tags.includes(foundTags[t])) {
+          newNote.tags.push(foundTags[t]);
+          saveNewTag(foundTags[t]);
+        }
+      }
+    }
     setActiveNote(newNote);
   };
 
@@ -33,6 +52,8 @@ const NoteDialogContainer: FC<INoteDialog> = ({ note, isNew, closeDialog }) => {
       changeTitle={changeTitle}
       changeText={changeText}
       closeDialog={closeDialog}
+      saveNewNote={saveNewNote}
+      deleteNote={deleteNote}
     />
   );
 };

@@ -1,4 +1,6 @@
-export let NOTES = [
+import { INote } from '../interfaces/notes';
+
+export let NOTES: Array<INote> = [
   {
     id: 5,
     title: 'First note',

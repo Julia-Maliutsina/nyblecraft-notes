@@ -14,9 +14,10 @@ interface INoteDialog {
   changeTitle: (value: string) => void;
   changeText: (value: string) => void;
   closeDialog: (isNew: boolean) => void;
-  saveNewNote: (note: INote) => void;
+  saveNewNote: () => void;
   deleteNote: (id: number | null) => void;
   saveNewTag?: (newTag: string) => void;
+  displayTextarea: boolean;
 }
 
 const NoteDialog: FC<INoteDialog> = ({
@@ -27,6 +28,7 @@ const NoteDialog: FC<INoteDialog> = ({
   closeDialog,
   saveNewNote,
   deleteNote,
+  displayTextarea,
 }) => (
   <div className="DialogBackground">
     <div className="NoteDialog">
@@ -39,7 +41,7 @@ const NoteDialog: FC<INoteDialog> = ({
           placeholder="Enter title"
         ></input>
       </label>
-      {activeNote.title && (
+      {displayTextarea && (
         <label className="Text">
           Text
           <HighlightWithinTextarea
@@ -60,7 +62,7 @@ const NoteDialog: FC<INoteDialog> = ({
       <p className="Date">{activeNote.date}</p>
       <div className="Buttons">
         {isNew ? (
-          <button onClick={() => saveNewNote(activeNote)}>Save</button>
+          <button onClick={() => saveNewNote()}>Save</button>
         ) : (
           <button onClick={() => deleteNote(activeNote.id)}>Delete</button>
         )}

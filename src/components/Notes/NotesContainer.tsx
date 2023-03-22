@@ -44,14 +44,14 @@ const NotesContainer: FC<INotesContainer> = ({ activeTag, saveNewTag }) => {
       newId = 1;
     }
     const newDate = new Date();
-    setIsNew(true);
-    return {
+    setActiveNote({
       id: newId,
       title: '',
       text: '',
       date: newDate.toISOString().slice(0, 10),
       tags: [],
-    };
+    });
+    setIsNew(true);
   };
 
   const deleteNote = (id: number | null) => {
@@ -68,10 +68,9 @@ const NotesContainer: FC<INotesContainer> = ({ activeTag, saveNewTag }) => {
     closeDialog(true);
   };
 
-  const saveNewNote = (note: INote) => {
-    if (note.title) {
-      setActiveNote(note);
-      const newNote = checkEndTags(note);
+  const saveNewNote = () => {
+    if (activeNote.title) {
+      const newNote = checkEndTags(activeNote);
       setNotes((notes) => {
         let newNotes = [...NOTES];
         newNotes.push(newNote);

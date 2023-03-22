@@ -21,7 +21,7 @@ const NotesPageContainer: FC = () => {
     if (!tags.some((t) => t.name === newTag)) {
       let id: number;
       if (TAGS.length) {
-        id = tags[tags.length - 1].id + 1;
+        id = TAGS[TAGS.length - 1].id + 1;
       } else {
         id = 1;
       }
@@ -40,8 +40,8 @@ const NotesPageContainer: FC = () => {
   const deleteTag = (tagId: number) => {
     for (let t = 0; t < tags.length; t++) {
       if (tags[t].id === tagId) {
-        setTags((prev: ITag[]) => {
-          let newTags = [...prev];
+        setTags((tags: ITag[]) => {
+          let newTags = [...tags];
           newTags.splice(t, 1);
           localStorage.setItem('tags', JSON.stringify(newTags));
           return newTags;

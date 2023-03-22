@@ -1,5 +1,8 @@
 import React from 'react';
 import { FC } from 'react';
+import { HighlightWithinTextarea } from 'react-highlight-within-textarea';
+
+import 'draft-js/dist/Draft.css';
 
 import { INote } from '../../interfaces/notes';
 
@@ -33,15 +36,19 @@ const NoteDialog: FC<INoteDialog> = ({
           defaultValue={activeNote.title}
           onChange={(e) => changeTitle(e.target.value)}
           type="text"
+          placeholder="Enter title"
         ></input>
       </label>
-      <label className="Text">
-        Text
-        <textarea
-          defaultValue={activeNote.text}
-          onChange={(e) => changeText(e.target.value)}
-        ></textarea>
-      </label>
+      {activeNote.title && (
+        <label className="Text">
+          Text
+          <HighlightWithinTextarea
+            value={activeNote.text}
+            onChange={changeText}
+            highlight={/(?<=^|\s)(#[a-z\d]+)(?=$|\s|\W)/g}
+          ></HighlightWithinTextarea>
+        </label>
+      )}
       {activeNote.tags[0] && (
         <div className="NoteDialog-Tags">
           TAGS:

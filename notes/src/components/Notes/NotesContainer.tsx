@@ -65,53 +65,48 @@ const NotesContainer: FC<INotesContainer> = ({ activeTag, saveNewTag }) => {
         });
       }
     }
-    checkEndTags();
     closeDialog(true);
   };
 
   const saveNewNote = (note: INote) => {
     if (note.title) {
+      setActiveNote(note);
+      const newNote = checkEndTags(note);
       setNotes((notes) => {
         let newNotes = [...NOTES];
-        newNotes.push(note);
+        newNotes.push(newNote);
         localStorage.setItem('notes', JSON.stringify(newNotes));
         return newNotes;
       });
-      checkEndTags();
       closeDialog(true);
     }
   };
 
   const saveEditedNote = () => {
     if (activeNote.title) {
+      const newNote = checkEndTags(activeNote);
       setNotes((notes) => {
         let newNotes = [...NOTES];
         for (let n = 0; n < newNotes.length; n++) {
-          if (newNotes[n].id === activeNote.id) {
-            newNotes[n] = activeNote;
+          if (newNotes[n].id === newNote.id) {
+            newNotes[n] = newNote;
             break;
           }
         }
         localStorage.setItem('notes', JSON.stringify(newNotes));
         return newNotes;
       });
-      checkEndTags();
     }
   };
 
-  const checkEndTags = () => {
-    let foundTag = activeNote.text.match(/(?<=^#|\s#)([a-z\d]+)(?=$)/g);
-    if (foundTag && !activeNote.tags.includes(foundTag[0])) {
-      console.log(foundTag[0]);
-      setActiveNote((note) => {
-        let newNote = { ...note };
-        if (foundTag) {
-          newNote.tags.push(foundTag[0]);
-        }
-        return newNote;
-      });
+  const checkEndTags = (note: INote) => {
+    let foundTag = note.text.match(/(?<=^#|\s#)([a-z\d]+)(?=$)/g);
+    if (foundTag && !note.tags.includes(foundTag[0])) {
       saveNewTag(foundTag[0]);
-    }
+      let newNote = { ...note };
+      newNote.tags.push(foundTag[0]);
+      return newNote;
+    } else return note;
   };
 
   const closeDialog = (isNew: boolean) => {

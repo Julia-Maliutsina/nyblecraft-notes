@@ -1,0 +1,77 @@
+@import '../../style/colors.scss';
+@import '../../style/buttons.scss';
+
+.Tags {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
+  height: 100%;
+  margin-right: 2.5%;
+  background-color: $light-color;
+  border-radius: 10px;
+  padding: 10px;
+  h4 {
+    font-size: 20px;
+    line-height: 20px;
+    margin: 10px auto;
+    height: 26px;
+    width: 50px;
+    text-align: center;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: $button-secondary-color;
+    color: $light-color;
+  }
+  .TagsWrapper {
+    .Tag {
+      display: inline-block;
+      font-size: 16px;
+      line-height: 16px;
+      height: 24px;
+      text-align: center;
+      padding: 4px 3px 4px 5px;
+      border-radius: 3px;
+      margin: 0 5px 5px 0;
+      font-family: 'Lucida Sans', sans-serif;
+      &:hover {
+        cursor: pointer;
+      }
+      .Delete {
+        background: url('../../images/delete-icon.png') no-repeat;
+        background-size: contain;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin: 0 3px 0 0;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .AddTag {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    input {
+      height: 30px;
+      border-radius: 3px;
+      margin-right: 5px;
+      width: 70%;
+      font-family: 'Lucida Sans', sans-serif;
+      border: 1px solid $secondary-color;
+      outline: none;
+    }
+    button {
+      @include button;
+      width: calc(30% - 5px);
+      padding: 0 3px;
+      &:hover {
+        @include hovered-button;
+      }
+    }
+  }
+}
